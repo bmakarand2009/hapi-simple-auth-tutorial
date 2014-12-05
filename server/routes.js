@@ -11,6 +11,7 @@ var loginRoutes = [
         config: Pages.index    
     },    
     { method: 'GET',    path: '/login',       config: Pages.login    },
+
     { method: 'GET',    path: '/register',    config: Pages.register },
     { method: 'POST',   path: '/login',       config: Authentication.login },
    // { method: 'GET',    path: '/logout',      config: Authentication.logout },
@@ -32,6 +33,7 @@ var otherRoutes = [
     }
 
 ];
+
 
 var endPoints = loginRoutes.concat(otherRoutes)
 
