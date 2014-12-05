@@ -1,0 +1,23 @@
+{
+  "name": "byMain",
+  "version": "0.0.0",
+  "description": "hapijs login page with auth for redirect",
+  "scripts": {
+    "start": "node server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Makarand Bkar",
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^6.11.0",
+    "joi": "^4.6.2",
+    "jsonfile": "^2.0.0",
+    "wreck": "^5.0.1",
+    "request": "~2.48.0",
+    "handlebars": "~2.0.0"
+  },
+  "engines": {
+    "node": "0.10.29",
+    "npm": "1.4.14"
+  }
+}
