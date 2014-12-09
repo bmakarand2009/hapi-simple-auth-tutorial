@@ -1,4 +1,4 @@
-exports.index = {  
+exports.index = {
 	//auth: 'session',
     handler: function (request, reply) {
         var data =
@@ -21,13 +21,18 @@ exports.login = {
         handler: function(request, reply){
 
         	// The user is already logged in, redirect it to the hideout
-    		if (request.auth.isAuthenticated) { 
+    		if (request.auth.isAuthenticated)
     			return reply.redirect('/success'); 
-    		} 
+        	
+        	var msg = '';
+        	console.log('login'+request.query);
+        	if (request.query.status == 'error')
+        		msg = 'Bad password! Please, try again.';
         	
     		// Show login form from view
             reply.view('login', {
-                title: 'Super Informative About Page'
+                title: 'Login Page',
+                message: msg,
             });
         },
 		auth: {
@@ -44,16 +49,9 @@ exports.login = {
  */
 exports.register = {  
     handler: function (request, reply) {
-
-        var form =
-        '<h1> Register </h1>' +
-        '<form method="post" action="register">' +
-        '   <p><input type="text"     name="email"    value="" placeholder="E-mail"></p>' +
-        '   <p><input type="password" name="password" value="" placeholder="Password"></p>' +
-        '   <p><input type="submit"   value="Login"></p>' +
-        '</form>';
-
-        reply(form);
+        reply.view('register', {
+            title: 'Register Page'
+        });
     }
 }	
 
@@ -65,9 +63,27 @@ exports.secret = {
  	handler: function (request, reply) {
  		console.log('success!');
  		var data = 
- 		'<h1> Success! </h1>' +
- 		'<p> Welcome to secret page, '+request.auth.credentials.email+'.</p>';
- 		'<a href="logout">Log out</a>'; 
+	 		'<h1> Success! </h1>'
+	 		+ '<p> Welcome to secret page, '+request.auth.session.id+'.</p>'
+	 		+ '<a href="/logout">Log out</a>'; 
      	reply(data);
  	} 
 };
+
+/**
+ * Handles a call to /register and shows a registration form
+ */
+exports.forgot = {  
+    handler: function (request, reply) {
+    	
+    	var msg = '';
+    	console.log('login'+request.query);
+    	if (request.query.status == 'error')
+    		msg = "User doesn't exists!";
+   	
+        reply.view('forgot', {
+            title: 'Forgot Password Page',
+            message: msg
+        });
+    }
+}

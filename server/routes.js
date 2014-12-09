@@ -9,27 +9,10 @@ var loginRoutes = [
     { method: 'GET',    path: '/login',    		config: Pages.login },
     { method: 'GET',    path: '/register',  	config: Pages.register },
     { method: 'GET',    path: '/success',		config: Pages.secret },
+    { method: 'GET',	path: '/forgot',    	config: Pages.forgot },
+    { method: 'POST',   path: '/forgot',    	config: Authentication.forgot },
     { method: 'POST',   path: '/login',			config: Authentication.login },
-//    	config: {
-//    		handler: Authentication.login,
-//	        auth: {
-//	            mode: 'try',
-//	            strategy: 'session'
-//	        },
-//	        plugins: {
-//	            'hapi-auth-cookie': {
-//	                redirectTo: false
-//	            }
-//	        }
-//	    }
-//    },
-    
-    { method: 'GET',	path: '/logout',		config: Authentication.logout},        	
-//    	config: {
-//    		handler: Authentication.logout,
-//    		auth: 'session'
-//    	}
-//     },
+    { method: 'GET',	path: '/logout',		config: Authentication.logout },        	
     { method: 'POST',   path: '/register',    	config: Authentication.register },
 ];
 

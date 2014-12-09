@@ -1,6 +1,19 @@
 var Joi = require('joi');  
 //var User = require('../models/user').User;
 
+var users = {
+    fer: {
+        id: 'fer',
+        password: 'admin',
+        name: 'fer min'
+    },
+    don: {
+        id: 'don',
+        password: '123',
+        name: 'don min'
+    },	
+};
+
 /**
  * Responds to POST /login and logs the user in, well, soon.
  */
@@ -21,15 +34,6 @@ exports.login = {
 //    	}
 //    },
     handler: function (request, reply) {
-        // reply('Hi your e-mail is "' + request.payload.email + request.payload.password + '", that\'s all!');
-        var users = {
-    	    fer: {
-    	        id: 'fer',
-    	        password: 'admin123',
-    	        name: 'fer min'
-    	    }
-    	};
-        
     	console.log('[login] ini');
     	var user_data = users[request.payload.email];
     	
@@ -42,7 +46,8 @@ exports.login = {
 		}
 
     	console.log('bad password')
-		return reply('Bad password for "' + request.payload.email + '"');
+    	
+		return reply.redirect('/login?status=error');
     },
 };
 
@@ -50,14 +55,21 @@ exports.login = {
  * Responds to POST /register and creates a new user.
  */
 exports.register = {
-    validate: {
-        payload: {
-            email: Joi.string().email().required(),
-            password: Joi.string().required()
-        }
-    },
+//    validate: {
+//        payload: {
+//            email: Joi.string().email().required(),
+//            password: Joi.string().required()
+//        }
+//    },
     handler: function(request, reply) {
-        reply('Hi your e-mail is "' + request.payload.email + '", that\'s all!');
+    	users[request.payload.email] = {
+    		name: {
+    	        id: request.payload.email,
+    	        password: request.payload.password
+    	    }
+    	};
+        //reply('Hi your e-mail is "' + request.payload.email + '", that\'s all!');
+    	return reply.redirect('/login?status=registered&username='+request.payload.email);
     }
 };
 
@@ -67,4 +79,23 @@ exports.logout = {
          request.auth.session.clear();
          reply().redirect('/');
      }
- };
+};
+
+exports.forgot = {
+//	    validate: {
+//	        payload: {
+//	            email: Joi.string().email().required(),
+//	        }
+//	    },
+	    handler: function(request, reply) {
+	    	console.log('[forgot] ini')
+	    	var user = users[request.payload.email];
+	    	if (typeof user == 'undefined') {
+	    		return reply.redirect('/forgot?status=error');
+	    	}
+	    	
+	    	// var password = 'PASSWORD';
+	    	console.log('[forgot] user: ' + user.password)
+	        reply('The password for the email "' + request.payload.email + '", is "'+ user.password + '"');
+	    }
+	};

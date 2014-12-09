@@ -1,18 +1,21 @@
 <div id="login_form">
+	<h1>{{ title }}</h1>
     <form name="f1" method="post" action="login" id="f1">
         <table>
             <tr>
-                <td class="f1_label">User Name :</td><td><input type="text" name="email" value="" />
-                </td>
+                <td class="f1_label">User Name :</td><td><input type="text" name="email" value="" /></td>
             </tr>
             <tr>
-                <td class="f1_label">Password  :</td><td><input type="password" name="password" value=""  />
-                </td>
+                <td class="f1_label">Password  :</td><td><input type="password" name="password" value="" /></td>
             </tr>
             <tr>
-                <td>
-                    <input type="submit" name="login" value="login" style="font-size:18px; " />
-                </td>
+                <td></td><td>{{ message }}</td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="login" value="login" style="font-size:18px;" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><a href="/forgot">forgot password?</a></td>
             </tr>
         </table>
     </form> 
