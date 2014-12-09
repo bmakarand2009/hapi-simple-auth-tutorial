@@ -28,6 +28,8 @@ exports.login = {
         	console.log('login'+request.query);
         	if (request.query.status == 'error')
         		msg = 'Bad password! Please, try again.';
+        	else if (request.query.status == 'registered')
+        		msg = 'User "'+request.query.username+'" was registered!';
         	
     		// Show login form from view
             reply.view('login', {
