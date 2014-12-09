@@ -37,14 +37,15 @@ exports.login = {
     	console.log('[login] ini');
     	var user_data = users[request.payload.email];
     	
-        if (request.payload.password == user_data.password) {
-	    	console.log('[login] password ok, so saving session')
-			request.auth.session.set(user_data);
-			
-			console.log('[login] redirecting to /success')
-			return reply.redirect('/success');
-		}
-
+    	if (typeof user_data != 'undefined') {
+	        if (request.payload.password == user_data.password) {
+		    	console.log('[login] password ok, so saving session')
+				request.auth.session.set(user_data);
+				
+				console.log('[login] redirecting to /success')
+				return reply.redirect('/success');
+			}
+    	}
     	console.log('bad password')
     	
 		return reply.redirect('/login?status=error');
@@ -63,10 +64,8 @@ exports.register = {
 //    },
     handler: function(request, reply) {
     	users[request.payload.email] = {
-    		name: {
-    	        id: request.payload.email,
-    	        password: request.payload.password
-    	    }
+	        id: request.payload.email,
+	        password: request.payload.password
     	};
         //reply('Hi your e-mail is "' + request.payload.email + '", that\'s all!');
     	return reply.redirect('/login?status=registered&username='+request.payload.email);

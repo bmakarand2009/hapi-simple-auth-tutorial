@@ -62,9 +62,10 @@ exports.secret = {
 	auth: 'session', 
  	handler: function (request, reply) {
  		console.log('success!');
+ 		console.log(request.credentials);
  		var data = 
 	 		'<h1> Success! </h1>'
-	 		+ '<p> Welcome to secret page, '+request.auth.session.id+'.</p>'
+	 		+ '<p> Welcome to secret page, '+request.auth.credentials.id+'.</p>'
 	 		+ '<a href="/logout">Log out</a>'; 
      	reply(data);
  	} 
