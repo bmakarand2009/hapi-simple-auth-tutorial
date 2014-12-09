@@ -1,4 +1,5 @@
 exports.index = {  
+	//auth: 'session',
     handler: function (request, reply) {
         var data =
         '<h1> Hi there! </h1>' +
@@ -12,12 +13,27 @@ exports.index = {
  * Handles a call to /login and shows a login form
  */
 exports.login = {  
-
+	    plugins: {
+	        'hapi-auth-cookie': {
+	            redirectTo: false
+	        }
+	    },
         handler: function(request, reply){
+
+        	// The user is already logged in, redirect it to the hideout
+    		if (request.auth.isAuthenticated) { 
+    			return reply.redirect('/success'); 
+    		} 
+        	
+    		// Show login form from view
             reply.view('login', {
                 title: 'Super Informative About Page'
             });
         },
+		auth: {
+			mode: 'try',
+			strategy: 'session'
+		},
         app: {
             name: 'login'
         }
@@ -41,13 +57,17 @@ exports.register = {
     }
 }	
 
-exports.about= {
-        handler: function(request, reply){
-            reply.view('about', {
-                title: 'Super Informative About Page'
-            });
-        },
-        app: {
-            name: 'about'
-        }
-}
+/** 
+  * Handles a call to /success and shows private stuff 
+  */ 
+exports.secret = {
+	auth: 'session', 
+ 	handler: function (request, reply) {
+ 		console.log('success!');
+ 		var data = 
+ 		'<h1> Success! </h1>' +
+ 		'<p> Welcome to secret page, '+request.auth.credentials.email+'.</p>';
+ 		'<a href="logout">Log out</a>'; 
+     	reply(data);
+ 	} 
+};
