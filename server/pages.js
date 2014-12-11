@@ -22,7 +22,7 @@ exports.login = {
 
         	// The user is already logged in, redirect it to the hideout
     		if (request.auth.isAuthenticated)
-    			return reply.redirect('/success'); 
+    			return reply.redirect('/success');
         	
         	var msg = '';
         	console.log('login'+request.query);
