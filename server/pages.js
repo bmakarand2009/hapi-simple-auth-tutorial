@@ -60,16 +60,15 @@ exports.register = {
 /** 
   * Handles a call to /success and shows private stuff 
   */ 
-exports.secret = {
+exports.success = {
 	auth: 'session', 
  	handler: function (request, reply) {
  		console.log('success!');
- 		console.log(request.credentials);
- 		var data = 
-	 		'<h1> Success! </h1>'
-	 		+ '<p> Welcome to secret page, '+request.auth.credentials.id+'.</p>'
-	 		+ '<a href="/logout">Log out</a>'; 
-     	reply(data);
+ 		console.log(request.auth.credentials);
+ 		reply.view('success', {
+ 			title: 'Success!',
+ 			id: request.auth.credentials.id,
+ 		});
  	} 
 };
 

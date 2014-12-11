@@ -20,7 +20,7 @@ var loginRoutes = [
     { method: 'GET', 	path: '/', 				config: Pages.index },    
     { method: 'GET',    path: '/login',    		config: Pages.login },
     { method: 'GET',    path: '/register',  	config: Pages.register },
-    { method: 'GET',    path: '/success',		config: Pages.secret },
+    { method: 'GET',    path: '/success',		config: Pages.success },
     { method: 'GET',	path: '/forgot',    	config: Pages.forgot },
     { method: 'POST',   path: '/forgot',    	config: Authentication.forgot },
     { method: 'POST',   path: '/login',			config: Authentication.login },
@@ -34,7 +34,8 @@ var routes = [
         method: 'GET',
         path : '/api/weather/{id}' ,
         config:{
-           handler: handler.serveWeather,
+        	auth: 'session', 
+        	handler: handler.serveWeather,
             description: 'Get Current Weather',
             notes: 'Returns the weather as per the site',
             tags: ['api'],
